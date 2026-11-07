@@ -1,6 +1,6 @@
+import os
 from huggingface_hub.utils import RepositoryNotFoundError
 from huggingface_hub import HfApi, create_repo
-import os
 
 repo_id = "ahamedb/bank-customer-churn"
 repo_type = "dataset"
@@ -13,8 +13,27 @@ except RepositoryNotFoundError:
     print(f"Dataset repo '{repo_id}' not found. Creating new repository...")
     create_repo(repo_id=repo_id, repo_type=repo_type, private=False)
 
-api.upload_folder(
-    folder_path="mlops/data",
-    repo_id=repo_id,
-    repo_type=repo_type,
-)
+csv_paths = [
+    "mlops/data/bank_customer_churn.csv",
+    "data/bank_customer_churn.csv",
+    "bank_customer_churn.csv",
+    "../bank_customer_churn.csv"
+]
+
+target_csv = None
+for path in csv_paths:
+    if os.path.exists(path):
+        target_csv = path
+        break
+
+if target_csv:
+    print(f"Found dataset at {target_csv}. Uploading...")
+    api.upload_file(
+        path_or_fileobj=target_csv,
+        path_in_repo="bank_customer_churn.csv",
+        repo_id=repo_id,
+        repo_type=repo_type,
+    )
+    print("Dataset file uploaded successfully.")
+else:
+    raise FileNotFoundError("Could not find bank_customer_churn.csv!")
