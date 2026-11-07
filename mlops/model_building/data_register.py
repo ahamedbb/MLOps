@@ -13,7 +13,7 @@ except RepositoryNotFoundError:
     print(f"Dataset repo '{repo_id}' not found. Creating new repository...")
     create_repo(repo_id=repo_id, repo_type=repo_type, private=False)
 
-# Look for the CSV file anywhere locally
+# Search for the CSV file locally
 csv_paths = [
     "mlops/data/bank_customer_churn.csv",
     "data/bank_customer_churn.csv",
@@ -37,4 +37,4 @@ if target_csv:
     )
     print("Dataset file uploaded successfully.")
 else:
-    raise FileNotFoundError("Could not find bank_customer_churn.csv!")
+    raise FileNotFoundError("Could not find bank_customer_churn.csv anywhere!")
