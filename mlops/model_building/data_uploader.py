@@ -13,16 +13,16 @@ except RepositoryNotFoundError:
     print(f"Dataset repo '{repo_id}' not found. Creating new repository...")
     create_repo(repo_id=repo_id, repo_type=repo_type, private=False)
 
-# Using upload_file directly to completely eliminate any folder path mismatch
+# Direct file upload using upload_file (No directory dependency)
 csv_path = "mlops/data/bank_customer_churn.csv"
 if not os.path.exists(csv_path):
     csv_path = "bank_customer_churn.csv"
 
-print(f"Uploading file {csv_path} directly...")
+print(f"Uploading file directly from {csv_path}...")
 api.upload_file(
     path_or_fileobj=csv_path,
     path_in_repo="bank_customer_churn.csv",
     repo_id=repo_id,
     repo_type=repo_type,
 )
-print("Dataset file uploaded successfully via upload_file.")
+print("Dataset file successfully uploaded!")
