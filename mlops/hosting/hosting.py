@@ -11,4 +11,4 @@ api.upload_folder(
     repo_type="space",
     path_in_repo=""
 )
-print("Hugging Face Space successfully updated with the full Streamlit app!")
+print("Space successfully updated with streamlit_app.py!")
